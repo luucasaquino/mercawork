@@ -7,11 +7,11 @@
     <title>Profissional</title>
 </head>
 <body>
-    <form action="cadastro-final.php">
+    <form method="POST" action="../apply/apply_cadastro.php">
         <h1>Cadastro de profissional</h1>
         Nome <input type="text" name="nome">
         CPF <input type="text" name="cpf">
-        Data de nascimento <input type="date" name="nascimento"> 
+        Data de nascimento <input type="date" name="dt_nascimento"> 
         <input type="submit" name="avancar" value="AVANÇAR">
     </form>
 </body>
