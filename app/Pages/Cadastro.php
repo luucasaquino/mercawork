@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Pages;
+
 use App\Bd\EntidadeProfissional;
+use App\Bd\EntidadeEmpresa;
+use App\Bd\EntidadeUsuario;
+
 class Cadastro
 {
-    private function validarDadosProfissional($nome, $dt_nascimento, $cpf, $email, $senha, $telefone, $endereco, $nivel)
+    private function validarDadosUsuario($email, $senha, $telefone, $nivel)
     {
-        if (empty($email) || empty($senha) || empty($telefone) || empty($endereco) || empty($dt_nascimento) || empty($cpf) || empty($nome) || empty($nivel)) {
+        if (empty($email) || empty($senha) || empty($telefone) || empty($nivel)) {
             $erro = 'É necessário preencher os dados';
             return false;
         } else {
@@ -16,12 +20,7 @@ class Cadastro
             } else if (strlen($telefone) != 11) {
                 $erro = 'Telefone não válido.';
                 return false;
-            } else if (self::verificarIdade($dt_nascimento) == false) {
-                $erro = 'É necessário ter mais de 18 anos para se cadastrar.';
-            } else if ($nivel != 1) {
-                return false;
-            } else if (self::validaCPF($cpf) == false) {
-                $erro = 'CPF inválido';
+            } else if ($nivel != 1 || $nivel != 2) {
                 return false;
             } else {
                 // SE TUDO ESTÁ OK, RETORNA TRUE
@@ -29,14 +28,34 @@ class Cadastro
             }
         }
     }
-    public function cadastrarProfissional($nome, $cpf, $dt_nascimento)
+
+    public function cadastrarUsuario($email, $senha, $telefone, $nivel){
+        $usuario = new EntidadeUsuario;
+        if ($insert = $usuario->insert($email, $senha, $telefone, $nivel))
+            return $insert;
+        else
+            return $erro = 'Erro ao cadastrar.';
+        
+    }
+
+    // CADASTRO PROFISSIONAL
+    public function cadastrarProfissional($nome, $cpf, $dt_nascimento, $id)
     {
         $profissional = new EntidadeProfissional;
-        if($insert = $profissional->insert($nome, $cpf, $dt_nascimento))
-        return $mensagem = 'Cadastrado com sucesso!';
+        if ($insert = $profissional->insert($nome, $cpf, $dt_nascimento, $id))
+            return $mensagem = 'Cadastrado com sucesso!';
         else
-        return $erro = 'Erro ao cadastrar.';
+            return $erro = 'Erro ao cadastrar.';
+    }
 
+    // CADASTRO EMPRESA
+    public function cadastrarEmpresa($nome, $cnpj, $id_endereco, $id)
+    {
+        $empresa = new EntidadeEmpresa;
+        if ($insert = $empresa->insert($nome, $cnpj, $id_endereco, $id))
+            return $mensagem = 'Cadastrado com sucesso!';
+        else
+            return $erro = 'Erro ao cadastrar.';
     }
 
     // MÉTODOS PARA VERIFICAÇÕES

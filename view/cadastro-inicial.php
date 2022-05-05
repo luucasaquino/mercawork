@@ -7,10 +7,12 @@
     <title>MercaWork</title>
 </head>
 <body>
-    <form action="">
+    <form method="POST" action="../apply/apply_cadastro_usuario.php">
         <h1>Credenciais</h1>
         E-mail <input type="email" name="email">
         Senha <input type="password" name="senha">
+        Telefone <input type="text" name="telefone">
+        <input type="hidden" name="t" value="<?php echo $_GET['t']; ?>">
         <hr>
         <h1>Endereço</h1>
         Logradouro <input type="text" name="logradouro">
@@ -20,7 +22,7 @@
         País <input type="text" name="pais">
         Estado <input type="text" name="estado">
         Cidade <input type="text" name="cidade">
-        <input type="submit" name="cadastar" value="CADASTRAR">
+        <input type="submit" name="cadastrar" value="CADASTRAR">
     </form>
 </body>
 </html>

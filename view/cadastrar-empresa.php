@@ -7,7 +7,7 @@
     <title>Empresa</title>
 </head>
 <body>
-    <form action="cadastro-final.php">
+    <form action="../apply/apply_cadastro_empresa.php" method="POST">
         <h1>Cadastro de empresa</h1>
         Nome Fantasia <input type="text" name="nome_fant">
         CNPJ <input type="text" name="cnpj">

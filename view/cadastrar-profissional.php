@@ -7,7 +7,7 @@
     <title>Profissional</title>
 </head>
 <body>
-    <form method="POST" action="../apply/apply_cadastro.php">
+    <form method="POST" action="../apply/apply_cadastro_profissional.php">
         <h1>Cadastro de profissional</h1>
         Nome <input type="text" name="nome">
         CPF <input type="text" name="cpf">

@@ -5,17 +5,17 @@ namespace App\Bd;
 use App\Bd\connections\Conexao;
 
 
-class EntidadeProfissional
+class EntidadeEmpresa
 {
     public static function getConnection()
     {
         $conexao = new Conexao;
         return $mysqli = $conexao->connect();
     }
-    public function insert($nome, $cpf, $dt_nascimento, $t)
+    public function insert($nome, $cnpj, $id_endereco, $t)
     {
         // INSERIR DADOS NA TABELA PROFISSIONAL
-        $insert = "INSERT INTO profissional VALUES (null, '$nome', '$cpf', '$dt_nascimento', $t)";
+        $insert = "INSERT INTO empresa VALUES (null, '$nome', '$cnpj', $id_endereco, $t)";
         $mysqli = self::getConnection();
         if ($mysqli->query($insert))
             return true;
@@ -26,7 +26,7 @@ class EntidadeProfissional
     public function select($campos, $condicao = '')
     {
         $mysqli = self::getConnection();
-        $select = "SELECT $campos FROM profissional $condicao";
+        $select = "SELECT $campos FROM empresa $condicao";
         if ($exe = $mysqli->query($select)) {
             $row = $exe->fetch_object();
             return $row;
@@ -34,14 +34,13 @@ class EntidadeProfissional
             return 'erro';
         }
     }
-    public function update($nome, $cpf, $dt_nascimento, $cd_profissional)
+    public function update($nome, $cnpj, $cd_empresa)
     {
         $mysqli = self::getConnection();
-        $update = "UPDATE profissional SET
+        $update = "UPDATE empresa SET
                     nome = '$nome',
-                    cpf = '$cpf',
-                    dt_nascimento = '$dt_nascimento'
-                  WHERE cd_profissional = $cd_profissional";
+                    cnpj = '$cnpj'
+                  WHERE cd_empresa = $cd_empresa";
         if ($mysqli->query($update)) {
             return 'deu bom';
         } else {
@@ -51,7 +50,7 @@ class EntidadeProfissional
     public function delete($id_usuario)
     {
         $mysqli = self::getConnection();
-        $delete = "DELETE FROM profissional WHERE
+        $delete = "DELETE FROM empresa WHERE
                     id_usuario = $id_usuario";
         if ($mysqli->query($delete)) {
             return 'deu bom';
